@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
 import { NgxTranslateModule } from './ngx-translate/ngx-translate.module';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CoreModule } from './core/core.module';
     BrowserAnimationsModule,
     MaterialModule,
     NgxTranslateModule,
-    CoreModule
+    CoreModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
