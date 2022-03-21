@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
 import { NgxTranslateModule } from './ngx-translate/ngx-translate.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NgxTranslateModule } from './ngx-translate/ngx-translate.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    NgxTranslateModule
+    NgxTranslateModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
