@@ -1,17 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoadingComponent } from './components/loading/loading.component';
+import { NgModule } from '@angular/core';
+
 import { ErrorMessagingComponent } from './components/error-messaging/error-messaging.component';
-
-
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
-  declarations: [
-    LoadingComponent,
-    ErrorMessagingComponent
-  ],
-  imports: [
-    CommonModule
-  ]
+  declarations: [ LoadingComponent, ErrorMessagingComponent ],
+  imports: [ CommonModule ],
+  exports: [ LoadingComponent, ErrorMessagingComponent ]
 })
 export class CoreModule { }
