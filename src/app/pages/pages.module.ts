@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
+import { MaterialModule } from '../material/material.module';
 import { NgxTranslateModule } from '../ngx-translate/ngx-translate.module';
 import {
     ProductListingPageComponent
@@ -18,8 +20,26 @@ import {
 } from './components/stock-registering-page/stock-registering-page.component';
 
 @NgModule({
-  declarations: [ SignInPageComponent, ProductListingPageComponent, ProductRegisteringPageComponent, StockRegisteringPageComponent, PurchaseHistoryListingPageComponent ],
-  imports: [ CommonModule, HttpClientModule, NgxTranslateModule ],
-  exports: [ SignInPageComponent, ProductListingPageComponent, ProductRegisteringPageComponent, StockRegisteringPageComponent, PurchaseHistoryListingPageComponent ]
+  declarations: [
+    SignInPageComponent,
+    ProductListingPageComponent,
+    ProductRegisteringPageComponent,
+    StockRegisteringPageComponent,
+    PurchaseHistoryListingPageComponent,
+  ],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    MaterialModule,
+    NgxTranslateModule,
+    ReactiveFormsModule,
+  ],
+  exports: [
+    SignInPageComponent,
+    ProductListingPageComponent,
+    ProductRegisteringPageComponent,
+    StockRegisteringPageComponent,
+    PurchaseHistoryListingPageComponent,
+  ],
 })
-export class PagesModule { }
+export class PagesModule {}

@@ -4,11 +4,18 @@
       <p>EXAMPLE SITE</p>
     </div>
     <div class="sign-in-criteria-wrapper">
-      <form>
-        <input id="signin-user-account" type="text" placeholder="ユーザアカウント">
-        <input id="signin-user-password" type="password" placeholder="パスワード">
+      <form [formGroup]="signInForm">
+        <mat-form-field class="form-field" hideRequiredMarker>
+          <input id="signin-user-account" matInput type="text" formControlName="signInUserAccount"
+            placeholder="{{ 'signInPage.userAccount' | translate }}">
+        </mat-form-field>
+        <mat-form-field class="form-field" hideRequiredMarker>
+          <input id="signin-user-password" matInput type="password" formControlName="signInUserPassword"
+            placeholder="{{ 'signInPage.userPassword' | translate }}">
+        </mat-form-field>
       </form>
-      <a href="ProuctListingPage.html" class="button">サインイン</a>
+      <button mat-flat-button id="sign-in-button" class="flat-button" type="button" [disabled]="!signInForm.valid">{{
+        'signInPage.signInButton' | translate}}</button>
     </div>
   </div>
 </section>
