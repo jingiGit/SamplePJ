@@ -45,6 +45,10 @@ export class ProductListingPageComponent implements OnInit, AfterViewChecked {
     endOfSale: this.endOfSale,
   });
 
+  /** Locale, Currency */
+  locale: string = this.accountService.getUser().userLocale;
+  currency: string = this.accountService.getUser().userCurrency;
+
   /** Select item of genre */
   genres: string[];
 
