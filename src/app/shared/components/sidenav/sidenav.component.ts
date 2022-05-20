@@ -2,6 +2,7 @@ import { RoutingService } from 'src/app/core/services/routing.service';
 import { UrlConst } from 'src/app/pages/constants/url-const';
 import { MenuListResponseDto } from 'src/app/pages/models/dtos/responses/menu-list-response-dto';
 import { AccountService } from 'src/app/pages/services/account.service';
+import { SearchParamsService } from 'src/app/pages/services/search-params.service';
 
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
@@ -23,7 +24,8 @@ export class SidenavComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
-    public routingService: RoutingService
+    public routingService: RoutingService,
+    private searchParamsService: SearchParamsService
   ) {}
 
   /**
@@ -38,6 +40,7 @@ export class SidenavComponent implements OnInit {
    * Clicks submenu
    */
   clickSubmenu(): void {
+    this.searchParamsService.removeProductListingSearchParamsDto();
     this.sidenavClose.emit();
   }
 
