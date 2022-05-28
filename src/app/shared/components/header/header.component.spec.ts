@@ -3,6 +3,7 @@ import { of } from 'rxjs';
 import { UrlConst } from 'src/app/pages/constants/url-const';
 import { MenuListResponseDto } from 'src/app/pages/models/dtos/responses/menu-list-response-dto';
 import { AccountService } from 'src/app/pages/services/account.service';
+import { SearchParamsService } from 'src/app/pages/services/search-params.service';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -17,6 +18,9 @@ describe('HeaderComponent', () => {
   let fixture: ComponentFixture<HeaderComponent>;
   let accountServiceSpy: { getMenu: jasmine.Spy; signOut: jasmine.Spy };
   let matDialogSpy: { open: jasmine.Spy };
+  let searchParamsServiceSpy: {
+    removeProductListingSearchParamsDto: jasmine.Spy;
+  };
   let router: Router;
 
   beforeEach(async () => {
@@ -25,6 +29,9 @@ describe('HeaderComponent', () => {
       'signOut',
     ]);
     matDialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    searchParamsServiceSpy = jasmine.createSpyObj('SearchParamsService', [
+      'removeProductListingSearchParamsDto',
+    ]);
     await TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       imports: [
@@ -36,6 +43,7 @@ describe('HeaderComponent', () => {
       providers: [
         { provide: MatDialog, useValue: matDialogSpy },
         { provide: AccountService, useValue: accountServiceSpy },
+        { provide: SearchParamsService, useValue: searchParamsServiceSpy },
       ],
       declarations: [HeaderComponent],
     }).compileComponents();
@@ -76,6 +84,15 @@ describe('HeaderComponent', () => {
       spyOn(component.sidenavToggle, 'emit').and.callThrough();
       component.clickSidenav();
       expect(component.sidenavToggle.emit).toHaveBeenCalled();
+    });
+  });
+
+  describe('#clickSubmenu', () => {
+    it('should remove search param', () => {
+      component.clickSubmenu();
+      expect(
+        searchParamsServiceSpy.removeProductListingSearchParamsDto.calls.count()
+      ).toBe(1);
     });
   });
 
