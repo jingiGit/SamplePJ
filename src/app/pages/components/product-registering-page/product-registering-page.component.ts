@@ -1,5 +1,9 @@
 import { Observable } from 'rxjs';
+import {
+    YesNoDialogComponent
+} from 'src/app/core/components/yes-no-dialog/yes-no-dialog.component';
 import { RegexConst as RegexConstCore } from 'src/app/core/constants/regex-const';
+import { YesNoDialogData } from 'src/app/core/models/yes-no-dialog-data';
 import { FormattedCurrencyPipe } from 'src/app/core/pipes/formatted-currency.pipe';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { RoutingService } from 'src/app/core/services/routing.service';
@@ -12,7 +16,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
+import { AppConst } from '../../constants/app-const';
 import { UrlConst } from '../../constants/url-const';
+import { ProductDto } from '../../models/dtos/product-dto';
 import { AccountService } from '../../services/account.service';
 import { ProductService } from '../../services/product.service';
 
@@ -145,7 +151,37 @@ export class ProductRegisteringPageComponent
   /**
    * Clicks save button
    */
-  clickSaveButton(): void {}
+  clickSaveButton(): void {
+    const dialogData: YesNoDialogData = {
+      title: this.translateService.instant(
+        'productRegisteringPage.saveYesNoDialog.title'
+      ),
+      message: this.translateService.instant(
+        'productRegisteringPage.saveYesNoDialog.message'
+      ),
+      captionNo: this.translateService.instant(
+        'productRegisteringPage.saveYesNoDialog.captionNo'
+      ),
+      captionYes: this.translateService.instant(
+        'productRegisteringPage.saveYesNoDialog.captionYes'
+      ),
+    };
+
+    const dialogRef = this.dialog.open(YesNoDialogComponent, {
+      height: AppConst.YES_NO_DIALOG_HEIGHT,
+      width: AppConst.YES_NO_DIALOG_WIDTH,
+      data: dialogData,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const productDto: ProductDto = this.createProductRegisterRequest(
+          this.isNew
+        );
+        this.registerProduct(this.isNew, productDto);
+      }
+    });
+  }
 
   /**
    * Received event from child
@@ -187,10 +223,91 @@ export class ProductRegisteringPageComponent
     return observable;
   }
 
-  private getProduct(): void {}
+  private getProduct(): void {
+    const productCode = this.route.snapshot.paramMap.get('productCode');
+    this.loadingService.startLoading();
+    this.productService.getProduct(productCode).subscribe((data) => {
+      this.extractGetProductResponse(data);
+      this.loadingService.stopLoading();
+    });
+  }
+
+  private registerProduct(isNew: boolean, productDto: ProductDto): void {
+    this.loadingService.startLoading();
+
+    if (isNew) {
+      // Creates product.
+      this.productService.createProduct(productDto).subscribe((data) => {
+        this.extractGetProductResponse(data);
+        this.loadingService.stopLoading();
+      });
+    } else {
+      // Updates product.
+      this.productService.updateProduct(productDto).subscribe((data) => {
+        this.extractGetProductResponse(data);
+        this.loadingService.stopLoading();
+      });
+    }
+  }
 
   private setupUpdateMode(): void {
     this.messagePropertytitle = 'productRegisteringPage.title.edit';
     this.messagePropertySaveButton = 'productRegisteringPage.saveButton.edit';
+  }
+
+  private createProductRegisterRequest(isNew: boolean): ProductDto {
+    const productDto: ProductDto = {
+      productSeq: null,
+      productCode: this.productCode.value,
+      productName: this.productName.value,
+      productGenre: this.productGenre.value,
+      productSizeStandard: this.productSizeStandard.value,
+      productColor: this.productColor.value,
+      productUnitPrice: Number(
+        this.formattedCurrencyPipe
+          .parse(this.productUnitPrice.value, this.locale)
+          .replace(
+            RegexConstCore.HalfWidthComma,
+            RegexConstCore.HalfWidthPeriod
+          )
+      ),
+      endOfSale: this.endOfSale.value,
+      endOfSaleDate:
+        this.endOfSaleDate.value === '' ? null : this.endOfSaleDate.value,
+      productImage: this.productImage.value,
+      updateDate: null,
+    };
+
+    if (!isNew) {
+      // for update
+      productDto.productSeq = this.productSeq.value;
+      productDto.updateDate = this.updateDate.value;
+    }
+    return productDto;
+  }
+
+  private extractGetProductResponse(productDto: ProductDto): void {
+    if (!productDto) {
+      return;
+    }
+    this.productSeq.setValue(productDto.productSeq);
+    this.productCode.setValue(productDto.productCode);
+    this.productName.setValue(productDto.productName);
+    this.productGenre.setValue(productDto.productGenre);
+    this.productSizeStandard.setValue(productDto.productSizeStandard);
+    this.productColor.setValue(productDto.productColor);
+    this.productUnitPrice.setValue(
+      this.formattedCurrencyPipe.transform(
+        productDto.productUnitPrice.toString(),
+        this.locale,
+        this.currency
+      )
+    );
+    this.endOfSale.setValue(productDto.endOfSale);
+    this.endOfSaleDate.setValue(
+      productDto.endOfSaleDate ? productDto.endOfSaleDate : ''
+    );
+    this.productImage.setValue(productDto.productImage);
+    this.updateDate.setValue(productDto.updateDate);
   }
 }
