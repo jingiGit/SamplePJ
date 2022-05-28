@@ -75,6 +75,9 @@ describe('SidenavComponent', () => {
     it('should remove search param', () => {
       spyOn(component.sidenavClose, 'emit').and.callThrough();
       component.clickSubmenu();
+      expect(
+        searchParamsServiceSpy.removeProductListingSearchParamsDto.calls.count()
+      ).toBe(1);
       expect(component.sidenavClose.emit).toHaveBeenCalled();
     });
   });
@@ -83,9 +86,6 @@ describe('SidenavComponent', () => {
     it('should close side nav', () => {
       spyOn(component.sidenavClose, 'emit').and.callThrough();
       component.clickHome();
-      expect(
-        searchParamsServiceSpy.removeProductListingSearchParamsDto.calls.count()
-      ).toBe(1);
       expect(component.sidenavClose.emit).toHaveBeenCalled();
     });
   });
