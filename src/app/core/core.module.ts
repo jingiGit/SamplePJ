@@ -13,6 +13,7 @@ import { XhrInterceptor } from './interceptors/xhr.interceptor';
 import { FormattedCurrencyPipe } from './pipes/formatted-currency.pipe';
 import { FormattedNumberPipe } from './pipes/formatted-number.pipe';
 import { FormattedNumberInputDirective } from './directives/formatted-number-input.directive';
+import { FormattedCurrencyInputDirective } from './directives/formatted-currency-input.directive';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FormattedNumberInputDirective } from './directives/formatted-number-inp
     FormattedCurrencyPipe,
     MatDatepickerComponent,
     FormattedNumberInputDirective,
+    FormattedCurrencyInputDirective,
   ],
   imports: [
     CommonModule,
