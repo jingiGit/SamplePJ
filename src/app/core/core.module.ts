@@ -8,6 +8,9 @@ import { NgxTranslateModule } from '../ngx-translate/ngx-translate.module';
 import { ErrorMessagingComponent } from './components/error-messaging/error-messaging.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { MatDatepickerComponent } from './components/mat-datepicker/mat-datepicker.component';
+import {
+    SuccessMessagingComponent
+} from './components/success-messaging/success-messaging.component';
 import { YesNoDialogComponent } from './components/yes-no-dialog/yes-no-dialog.component';
 import { FormattedCurrencyInputDirective } from './directives/formatted-currency-input.directive';
 import { FormattedNumberInputDirective } from './directives/formatted-number-input.directive';
@@ -25,6 +28,7 @@ import { FormattedNumberPipe } from './pipes/formatted-number.pipe';
     MatDatepickerComponent,
     FormattedNumberInputDirective,
     FormattedCurrencyInputDirective,
+    SuccessMessagingComponent,
   ],
   imports: [
     CommonModule,
@@ -45,6 +49,7 @@ import { FormattedNumberPipe } from './pipes/formatted-number.pipe';
     MatDatepickerComponent,
     FormattedNumberInputDirective,
     FormattedCurrencyInputDirective,
+    SuccessMessagingComponent,
   ],
 })
 export class CoreModule {}
