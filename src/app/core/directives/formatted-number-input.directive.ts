@@ -1,4 +1,6 @@
-import { Directive, HostListener, OnInit } from '@angular/core';
+import { Directive, ElementRef, HostListener, OnInit } from '@angular/core';
+
+import { FormattedNumberPipe } from '../pipes/formatted-number.pipe';
 
 const LOCALE = 'locale';
 
