@@ -9,11 +9,11 @@ import { ErrorMessagingComponent } from './components/error-messaging/error-mess
 import { LoadingComponent } from './components/loading/loading.component';
 import { MatDatepickerComponent } from './components/mat-datepicker/mat-datepicker.component';
 import { YesNoDialogComponent } from './components/yes-no-dialog/yes-no-dialog.component';
+import { FormattedCurrencyInputDirective } from './directives/formatted-currency-input.directive';
+import { FormattedNumberInputDirective } from './directives/formatted-number-input.directive';
 import { XhrInterceptor } from './interceptors/xhr.interceptor';
 import { FormattedCurrencyPipe } from './pipes/formatted-currency.pipe';
 import { FormattedNumberPipe } from './pipes/formatted-number.pipe';
-import { FormattedNumberInputDirective } from './directives/formatted-number-input.directive';
-import { FormattedCurrencyInputDirective } from './directives/formatted-currency-input.directive';
 
 @NgModule({
   declarations: [
@@ -43,6 +43,8 @@ import { FormattedCurrencyInputDirective } from './directives/formatted-currency
     FormattedCurrencyPipe,
     FormattedNumberPipe,
     MatDatepickerComponent,
+    FormattedNumberInputDirective,
+    FormattedCurrencyInputDirective,
   ],
 })
 export class CoreModule {}
