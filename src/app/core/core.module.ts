@@ -12,6 +12,7 @@ import { YesNoDialogComponent } from './components/yes-no-dialog/yes-no-dialog.c
 import { XhrInterceptor } from './interceptors/xhr.interceptor';
 import { FormattedCurrencyPipe } from './pipes/formatted-currency.pipe';
 import { FormattedNumberPipe } from './pipes/formatted-number.pipe';
+import { FormattedNumberInputDirective } from './directives/formatted-number-input.directive';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { FormattedNumberPipe } from './pipes/formatted-number.pipe';
     FormattedNumberPipe,
     FormattedCurrencyPipe,
     MatDatepickerComponent,
+    FormattedNumberInputDirective,
   ],
   imports: [
     CommonModule,
