@@ -16,6 +16,9 @@
                 placeholder="{{ 'stockRegisteringPage.productCode' | translate }}"
                 matTooltip="{{ 'tooltip.registerValue.input.alphaNumeric' | translate }}" maxlength=20
                 (blur)="blurProductCode()">
+              <mat-error class="validation-error" *ngIf="productCode.hasError('productNotExistError')">
+                {{'stockRegisteringPage.validationError.productNotExistError'|translate}}
+              </mat-error>
             </mat-form-field>
           </div>
           <div class="registering-condition-wrapper">

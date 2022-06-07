@@ -18,6 +18,9 @@ import { ProductStockRequestDto } from '../../models/dtos/requests/product-stock
 import { ProductStockResponseDto } from '../../models/dtos/responses/product-stock-response-dto';
 import { AccountService } from '../../services/account.service';
 import { ProductStockService } from '../../services/product-stock.service';
+import {
+    ProductCodeProductNameValidator
+} from '../../validators/product-code-product-name-validator';
 
 @Component({
   selector: 'app-stock-registering-page',
@@ -38,15 +41,20 @@ export class StockRegisteringPageComponent implements OnInit, AfterViewChecked {
   ]);
   productImage = new FormControl(null);
 
-  registeringForm = this.formBuilder.group({
-    productCode: this.productCode,
-    productName: this.productName,
-    productGenre: this.productGenre,
-    productSizeStandard: this.productSizeStandard,
-    productStockQuantity: this.productStockQuantity,
-    addProductStockQuantity: this.addProductStockQuantity,
-    productImage: this.productImage,
-  });
+  registeringForm = this.formBuilder.group(
+    {
+      productCode: this.productCode,
+      productName: this.productName,
+      productGenre: this.productGenre,
+      productSizeStandard: this.productSizeStandard,
+      productStockQuantity: this.productStockQuantity,
+      addProductStockQuantity: this.addProductStockQuantity,
+      productImage: this.productImage,
+    },
+    {
+      validators: ProductCodeProductNameValidator,
+    }
+  );
 
   /** Locale */
   locale: string = this.accountService.getUser().userLocale;
