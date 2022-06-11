@@ -19,6 +19,9 @@ import { ProductPurchaseService } from 'src/app/pages/services/product-purchase.
 import {
     ProductCodeProductNameValidator
 } from 'src/app/pages/validators/product-code-product-name-validator';
+import {
+    PurchaseQuantityStockQuantityValidator
+} from 'src/app/pages/validators/purchase-quantity-stock-quantity-validator';
 import { TitleI18Service } from 'src/app/shared/services/title-i18.service';
 
 import { AfterViewChecked, Component, OnInit } from '@angular/core';
@@ -62,7 +65,12 @@ export class DummyPurchasingPageComponent implements OnInit, AfterViewChecked {
       productImage: this.productImage,
     },
     {
-      validators: [ProductCodeProductNameValidator],
+      validators: [
+        ProductCodeProductNameValidator,
+        PurchaseQuantityStockQuantityValidator(
+          this.accountService.getUser().userLocale
+        ),
+      ],
     }
   );
 
